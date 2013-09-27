@@ -19,9 +19,11 @@ class Step1(webapp2.RequestHandler):
     def get(self):
 
         user = users.get_current_user()
+        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
 
-        otaku = Otaku()
-        otaku.userid = user.user_id()
+        if otaku:
+            self.redirect("/")
+            return
 
         # Create your consumer with the proper key/secret.
         consumer = oauth.Consumer(key=consumer_key,
@@ -55,6 +57,11 @@ class Step1(webapp2.RequestHandler):
 class Step2(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
+
+        if otaku:
+            self.redirect("/")
+            return
 
         oauth_verifier = self.request.get('oauth_token')
         self.response.write("Received token = " + oauth_verifier + "<br />")
