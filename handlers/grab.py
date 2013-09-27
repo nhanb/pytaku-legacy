@@ -1,10 +1,11 @@
 import webapp2
 import cgi
-from google.appengine.api import urlfetch, files
+from google.appengine.api import urlfetch, files, users
 from dropbox import upload
 from auth import Otaku
 from sites import factory
 import re
+
 
 class Grab(webapp2.RequestHandler):
 
@@ -28,10 +29,10 @@ class Grab(webapp2.RequestHandler):
         siteOb = factory(link)
         self.async_download(siteOb)
 
-    
     def async_download(self, site_obj):
         # Fetch user
-        otaku = Otaku.query(Otaku.username == "Nhan").get()
+        user = users.get_current_user()
+        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
 
         # Upload to dropbox
         for page in site_obj.pages:
@@ -54,7 +55,8 @@ class Grab(webapp2.RequestHandler):
 
 def get_pages_from_chapter(chapter_link):
     chapter_html = urlfetch.fetch(chapter_link).content
-    #lstImages.push("http://2.bp.blogspot.com/-dDoTjVP9jIk/UZNi2wUDSdI/AAAAAAAAKh0/IbV0Pi2WZiQ/001.png?imgmax=2000");
+    #lstImages.push("http://2.bp.blogspot.com/-dDoTjVP9jIk/UZNi2wUDSdI/
+    #AAAAAAAAKh0/IbV0Pi2WZiQ/001.png?imgmax=2000");
 
     # Create regex to match page link
     pat = re.compile('lstImages\.push\("(.+?)"\);')

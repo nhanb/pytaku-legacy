@@ -4,10 +4,11 @@ import urlparse
 from parseini import consumer_key, consumer_secret,\
     request_token_url, authorize_url
 from google.appengine.ext import ndb
+from google.appengine.api import users
 
 
 class Otaku(ndb.Model):
-    username = ndb.StringProperty()
+    userid = ndb.StringProperty()
     request_token = ndb.StringProperty(indexed=False)
     request_secret = ndb.StringProperty(indexed=False)
     access_token = ndb.StringProperty(indexed=False)
@@ -17,8 +18,10 @@ class Otaku(ndb.Model):
 class Step1(webapp2.RequestHandler):
     def get(self):
 
+        user = users.get_current_user()
+
         otaku = Otaku()
-        otaku.username = "Nhan"
+        otaku.userid = user.user_id()
 
         # Create your consumer with the proper key/secret.
         consumer = oauth.Consumer(key=consumer_key,
@@ -51,10 +54,12 @@ class Step1(webapp2.RequestHandler):
 
 class Step2(webapp2.RequestHandler):
     def get(self):
+        user = users.get_current_user()
+
         oauth_verifier = self.request.get('oauth_token')
         self.response.write("Received token = " + oauth_verifier + "<br />")
 
-        otaku = Otaku.query(Otaku.username == "Nhan").get()
+        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
         self.response.write("Stored token = " + otaku.request_token + "<br />")
 
         token = oauth.Token(otaku.request_token,
