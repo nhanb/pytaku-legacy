@@ -13,6 +13,7 @@ class Otaku(ndb.Model):
     access_token = ndb.StringProperty(indexed=False)
     access_secret = ndb.StringProperty(indexed=False)
 
+
 class Step1(webapp2.RequestHandler):
     def get(self):
 
@@ -40,11 +41,11 @@ class Step1(webapp2.RequestHandler):
         otaku.put()
 
         full_url = (authorize_url +
-                      '?oauth_token=' + content_dict['oauth_token'] +
-                      '&oauth_callback=' + self.request.host_url + '/oauth/2')
+                    '?oauth_token=' + content_dict['oauth_token'] +
+                    '&oauth_callback=' + self.request.host_url + '/oauth/2')
 
         self.response.write('<a href="' + full_url + '">Click</a><br />')
-        self.response.write('<br />otaku.request_token: ' + otaku.request_token)
+        self.response.write('<br />otaku.request_token:' + otaku.request_token)
         self.response.write('<br />Real token: ' + content_dict['oauth_token'])
 
 
@@ -79,4 +80,4 @@ class Step2(webapp2.RequestHandler):
         self.response.write(str(content))
         self.response.write("<br />")
         self.response.write(str(otaku))
-        #self.response.write("Access secret saved: " + otaku.access_secret)
+        self.response.write("Access secret saved: " + otaku.access_secret)
