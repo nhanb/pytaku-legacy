@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Grab 'em!'{% endblock %}
+{% block head %}
+    {{ super() }}
+    <style type="text/css">
+
+        body {
+            text-align: center;
+        }
+
+        textarea {
+            color: white;
+            font-size: 20px;
+            width: 70%;
+            min-width: 400px;
+            height: 10em;
+            border: 3px solid white;
+            padding: 10px;
+            outline: none;
+            resize: none;
+            background-color: #0e83cd;
+            font-size: 11px;
+        }
+
+    </style>
+{% endblock %}
+{% block body %}
+<h1>Logged in as <strong>{{ user_email }}</strong></h1>
+    <form action="/" method="post">
+        <textarea id="content" name="content" wrap="off"
+            placeholder="Paste kissmanga chapter links here (one link per line)"
+            ></textarea><br />
+        <button class="btn btn-1 btn-1e" type="submit">Get 'em</button>
+    </form>
+{% endblock %}
