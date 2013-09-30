@@ -1,6 +1,6 @@
 import webapp2
 import cgi
-from google.appengine.api import urlfetch, files, users
+from google.appengine.api import urlfetch, files
 from dropbox import upload
 from auth import Otaku
 from sites import factory
@@ -26,21 +26,16 @@ class Grab(webapp2.RequestHandler):
 
     def post(self):
         link = cgi.escape(self.request.get('content'))
+        user_id = cgi.escape(self.request.get('userid'))
         siteOb = factory(link)
-        self.async_download(siteOb)
+        self.async_download(siteOb, user_id)
 
-    def async_download(self, site_obj):
+    def async_download(self, site_obj, user_id):
         # Fetch user
-        user = users.get_current_user()
-        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
+        otaku = Otaku.query(Otaku.userid == user_id).get()
 
         # Upload to dropbox
         for page in site_obj.pages:
-
-            #rpc = urlfetch.create_rpc()
-            #rpc.callback = create_callback(rpc)
-            #urlfetch.make_fetch_call(rpc, url)
-            #rpcs.append(rpc)
 
             # Image binary
             img = urlfetch.fetch(page[1]).content

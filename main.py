@@ -11,6 +11,7 @@ import webapp2
 
 app = webapp2.WSGIApplication([('/', 'handlers.index.MainPage'),
                                ('/grab', 'handlers.grab.Grab'),
+                               ('/worker', 'handlers.grab.Worker'),
                                ('/oauth', 'handlers.auth.Step1'),
                                ('/oauth/1', 'handlers.auth.Step1'),
                                ('/oauth/2', 'handlers.auth.Step2'),
