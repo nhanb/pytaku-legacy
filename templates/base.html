@@ -15,8 +15,12 @@
 
     <style class="text/css">
         body {
-            min-height: 2000px;
             padding-top: 70px;
+        }
+
+        .nav-text {
+            color: #777;
+            margin-right: 15px;
         }
     </style>
 
@@ -39,19 +43,23 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Project name</a>
+          <a class="navbar-brand" href="#">Pytaku</a>
         </div>
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/oauth">Authenticate with Dropbox</a></li>
+            <li><a href="https://github.com/nhanb/pytaku">Source code</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-              <li><a>Logged in as <strong>{{ username }}</strong></a></li>
-              <li><button type="button" class="btn btn-default navbar-btn">Logout</button></li>
-          </ul>
+
+          <form class="nav navbar-form navbar-right">
+              <span class="nav-text">Logged in as <strong>{{ username }}</strong></span>
+              <button type="button" class="btn btn-default">Logout</button>
+          </form>
+
+
+
         </div><!--/.nav-collapse -->
 
       </div>
@@ -59,7 +67,10 @@
 
     <div class="container">
 
-    {% block content %}{% endblock %}
+        <!-- Have to put jquery here so "content" block has access to all this -->
+        <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+
+        {% block content %}{% endblock %}
 
     </div> <!-- /container -->
 
@@ -67,17 +78,6 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('textarea').keydown(function (e) {
-
-                if (e.ctrlKey && e.keyCode == 13) {
-                    $('button[name="submit"]').trigger('click');
-                }
-            });
-        });
-    </script>
   </body>
 </html>

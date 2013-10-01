@@ -16,11 +16,26 @@
 
 <div class="jumbotron">
     <form action="/" method="post">
-        <textarea id="content" name="content" class="form-control" rows="5"
-            placeholder="Paste kissmanga chapter links here (one link per line)"
+    <p>Paste kissmanga chapter links here (one link per line)</p>
+        <textarea id="content" name="content" class="form-control" rows="7"
+            placeholder="Ctrl + Enter to submit"
             ></textarea>
     <div><button name="submit" class="btn btn-success btn-lg" type="submit">Get 'em</button></div>
     </form>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+
+        // Ctrl+Enter to submit links
+        $('body').keydown(function (e) {
+            // Also don't submit if empty or whitespace-only input
+            if (e.ctrlKey && e.keyCode == 13 && $.trim($("#content").val())) {
+                $('button[name="submit"]').trigger('click');
+            }
+        });
+
+    });
+</script>
 
 {% endblock %}
