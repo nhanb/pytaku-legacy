@@ -1,20 +1,13 @@
 import webapp2
 import cgi
+import jinja2
+import os
 from google.appengine.api import taskqueue, users
 
-
-MAIN_PAGE_HTML = """\
-<html>
-  <body>
-
-    <form action="/" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Get pic"></div>
-    </form>
-
-  </body>
-</html>
-"""
+JINJA_ENV = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +
+                                   '/../templates/'),
+    extensions=['jinja2.ext.autoescape'])
 
 SUCCESS_PAGE_HTML = """
 Your request has been fired off. Check your dropbox.<br />
@@ -25,7 +18,13 @@ Your request has been fired off. Check your dropbox.<br />
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-        self.response.write(MAIN_PAGE_HTML)
+        user = users.get_current_user()
+        template = JINJA_ENV.get_template('index.html')
+        template_values = {
+            'username': user.email(),
+            'logout_link': users.create_logout_url('/'),
+        }
+        self.response.write(template.render(template_values))
 
     # Handle grab request by firing off a task
     def post(self):
