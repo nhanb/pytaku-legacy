@@ -21,7 +21,8 @@ class MainPage(webapp2.RequestHandler):
         user = users.get_current_user()
         template = JINJA_ENV.get_template('index.html')
         template_values = {
-            'username': user.email()
+            'username': user.email(),
+            'logout_link': users.create_logout_url('/'),
         }
         self.response.write(template.render(template_values))
 
