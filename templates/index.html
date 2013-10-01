@@ -1,35 +1,26 @@
 {% extends "base.html" %}
 {% block title %}Grab 'em!{% endblock %}
-{% block head %}
-    {{ super() }}
-    <style type="text/css">
 
-        body {
-            text-align: center;
-        }
+{% block content %}
 
-        textarea {
-            color: white;
-            font-size: 20px;
-            width: 70%;
-            min-width: 400px;
-            height: 10em;
-            border: 3px solid white;
-            padding: 10px;
-            outline: none;
-            resize: none;
-            background-color: #0e83cd;
-            font-size: 11px;
-        }
+<style class="text/css">
+    .jumbotron {
+        text-align: center;
+        padding-bottom: 34px;
+    }
 
-    </style>
-{% endblock %}
-{% block body %}
-<h1>Logged in as <strong>{{ user_email }}</strong></h1>
+    textarea {
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="jumbotron">
     <form action="/" method="post">
-        <textarea id="content" name="content" wrap="off"
+        <textarea id="content" name="content" class="form-control" rows="5"
             placeholder="Paste kissmanga chapter links here (one link per line)"
-            ></textarea><br />
-        <button class="btn btn-1 btn-1e" type="submit">Get 'em</button>
+            ></textarea>
+    <div><button name="submit" class="btn btn-success btn-lg" type="submit">Get 'em</button></div>
     </form>
+</div>
+
 {% endblock %}

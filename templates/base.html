@@ -1,20 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% block head %}
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <meta charset="utf-8">
-    <!--[if IE]>
-        <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>{% block title %}{% endblock %} - Pytaku - Manga to Dropbox for otaku on the go</title>
+
+    <!-- Bootstrap from CDN -->
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
+
+    <style class="text/css">
+        body {
+            min-height: 2000px;
+            padding-top: 70px;
+        }
+    </style>
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../../assets/js/html5shiv.js"></script>
+      <script src="../../assets/js/respond.min.js"></script>
     <![endif]-->
-    <link rel="stylesheet" href="/static/style.css" />
-    <title>{% block title %}{% endblock %} - Pytaku - Manga grabber for otaku on the go</title>
     {% endblock %}
-</head>
+  </head>
 
-<body>
+  <body>
 
-    {% block body %}{% endblock %}
+    <!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">Project name</a>
+        </div>
 
-</body>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li class="active"><a href="#">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+              <li><a>Logged in as <strong>{{ username }}</strong></a></li>
+              <li><button type="button" class="btn btn-default navbar-btn">Logout</button></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+
+      </div>
+    </div>
+
+    <div class="container">
+
+    {% block content %}{% endblock %}
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('textarea').keydown(function (e) {
+
+                if (e.ctrlKey && e.keyCode == 13) {
+                    $('button[name="submit"]').trigger('click');
+                }
+            });
+        });
+    </script>
+  </body>
 </html>
