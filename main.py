@@ -15,7 +15,5 @@ app = webapp2.WSGIApplication([('/', 'handlers.index.MainPage'),
                                ('/oauth', 'handlers.auth.Step1'),
                                ('/oauth/1', 'handlers.auth.Step1'),
                                ('/oauth/2', 'handlers.auth.Step2'),
-                               ('/serve/([^/]+)?',
-                                'handlers.serve.ServeHandler')
                                ],
                               debug=True)
