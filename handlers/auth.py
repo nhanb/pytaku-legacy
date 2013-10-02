@@ -54,6 +54,11 @@ class Step1(webapp2.RequestHandler):
 
 class Step2(webapp2.RequestHandler):
     def get(self):
+
+        if self.request.get('not_approved') == "true":
+            self.redirect("/?msg=not_approved")
+            return
+
         user = users.get_current_user()
         otaku = Otaku.query(Otaku.userid == user.user_id()).get()
 
@@ -81,9 +86,4 @@ class Step2(webapp2.RequestHandler):
         otaku.access_secret = access_token['oauth_token_secret']
         otaku.put()
 
-        self.response.write(str(access_token))
-        self.response.write("<br />")
-        self.response.write(str(content))
-        self.response.write("<br />")
-        self.response.write(str(otaku))
-        self.response.write("Access secret saved: " + otaku.access_secret)
+        self.redirect("/?msg=approved")

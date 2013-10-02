@@ -14,6 +14,15 @@
     }
 </style>
 
+{% set alert_display=alert_display or "none" %}
+{% set alert_type=alert_type or "info" %}
+{% set alert_msg=alert_msg or "" %}
+
+<div style="display:{{ alert_display }};" class="alert alert-{{ alert_type }} alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    {{ alert_msg }}
+</div>
+
 <div class="jumbotron">
     <form action="/" method="post">
     <p>Paste kissmanga chapter links here (one link per line)</p>

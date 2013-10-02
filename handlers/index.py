@@ -14,6 +14,12 @@ Your request has been fired off. Check your dropbox.<br />
 <a href="/">Click here</a> to submit another link.
 """
 
+alert_messages = {
+    'approved': ("Dropbox account connected!", "success"),
+    'not_approved': ("Failed to connect Dropbox account. Why did you cancel?",
+                     "danger"),
+}
+
 
 class MainPage(webapp2.RequestHandler):
 
@@ -24,6 +30,18 @@ class MainPage(webapp2.RequestHandler):
             'username': user.email(),
             'logout_link': users.create_logout_url('/'),
         }
+
+        msg = self.request.get('msg')
+
+        if msg in alert_messages:
+            alert_values = {
+                'alert_display': 'block',
+                'alert_type': alert_messages[msg][1],
+                'alert_msg': alert_messages[msg][0],
+            }
+            template_values = dict(template_values.items() +
+                                   alert_values.items())
+
         self.response.write(template.render(template_values))
 
     # Handle grab request by firing off a task
