@@ -19,18 +19,15 @@ class Step1(webapp2.RequestHandler):
     def get(self):
 
         user = users.get_current_user()
-        otaku = Otaku.query(Otaku.userid == user.user_id()).get()
+        query = Otaku.query(Otaku.userid == user.user_id())
+        otaku = query.get()
 
-        if otaku:
-            self.redirect("/")
-            return
-
-        otaku = Otaku()
-        otaku.userid = user.user_id()
+        if otaku is None:
+            otaku = Otaku()
+            otaku.userid = user.user_id()
 
         # Create your consumer with the proper key/secret.
-        consumer = oauth.Consumer(key=consumer_key,
-                                  secret=consumer_secret)
+        consumer = oauth.Consumer(key=consumer_key, secret=consumer_secret)
 
         # Create our client.
         client = oauth.Client(consumer)
@@ -52,9 +49,7 @@ class Step1(webapp2.RequestHandler):
                     '?oauth_token=' + content_dict['oauth_token'] +
                     '&oauth_callback=' + self.request.host_url + '/oauth/2')
 
-        self.response.write('<a href="' + full_url + '">Click</a><br />')
-        self.response.write('<br />otaku.request_token:' + otaku.request_token)
-        self.response.write('<br />Real token: ' + content_dict['oauth_token'])
+        self.redirect(full_url)
 
 
 class Step2(webapp2.RequestHandler):

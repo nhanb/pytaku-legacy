@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <!--<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">-->
 
+    <!-- Fontawesome -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
     <style class="text/css">
         body {
             padding-top: 70px;
@@ -48,14 +51,14 @@
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="/">Home</a></li>
-            <li><a href="/oauth">Authenticate with Dropbox</a></li>
-            <li><a href="https://github.com/nhanb/pytaku">Source code</a></li>
+              <li class="active"><a href="/"><i class="icon-home icon-large"></i> Home</a></li>
+            <li><a href="/oauth"><i class="icon-dropbox icon-large"></i> Authenticate with Dropbox</a></li>
+            <li><a href="https://github.com/nhanb/pytaku"><i class="icon-github icon-large"></i> Github</a></li>
           </ul>
 
           <form class="nav navbar-form navbar-right" action="{{ logout_link }}">
               <span class="nav-text">Logged in as <strong>{{ username }}</strong></span>
-              <button type="submit" class="btn btn-default">Logout</button>
+              <button type="submit" class="btn btn-default btn-danger"><i class="icon-ban-circle"></i> Logout</button>
           </form>
 
 
