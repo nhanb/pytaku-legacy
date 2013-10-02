@@ -17,9 +17,9 @@
 <div class="jumbotron">
     <form action="/" method="post">
     <p>Paste kissmanga chapter links here (one link per line)</p>
-        <textarea id="content" name="content" class="form-control" rows="7"
-            placeholder="Ctrl + Enter to submit"
-            ></textarea>
+    <textarea id="content" name="content" class="form-control" rows="7"
+        placeholder="Ctrl + Enter to start grabbing pasted links"
+        ></textarea>
     <div><button name="submit" class="btn btn-success btn-lg" type="submit"><i
                 class="icon-download-alt"></i> Get 'em</button></div>
     </form>
@@ -35,6 +35,9 @@
                 $('button[name="submit"]').trigger('click');
             }
         });
+
+        // Autofocus on main input
+        $('#content').focus();
 
     });
 </script>

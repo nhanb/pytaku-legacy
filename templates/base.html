@@ -51,17 +51,20 @@
 
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav">
-              <li class="active"><a href="/"><i class="icon-home icon-large"></i> Home</a></li>
+            <li class="active"><a href="/"><i class="icon-home icon-large"></i> Home</a></li>
             <li><a href="/oauth"><i class="icon-dropbox icon-large"></i> Authenticate with Dropbox</a></li>
             <li><a href="https://github.com/nhanb/pytaku"><i class="icon-github icon-large"></i> Github</a></li>
           </ul>
 
-          <form class="nav navbar-form navbar-right" action="{{ logout_link }}">
-              <span class="nav-text">Logged in as <strong>{{ username }}</strong></span>
-              <button type="submit" class="btn btn-default btn-danger"><i class="icon-ban-circle"></i> Logout</button>
-          </form>
-
-
+          <ul class="nav navbar-nav navbar-right">
+              <li><a href="#">Logged in as <strong>{{ username }}</strong></a></li>
+              <li>
+                  <button data-toggle='tooltip' title='This means logging out of gmail!'
+                      id="logout" class="btn btn-default btn-danger navbar-btn">
+                      <i class="icon-ban-circle"></i> Logout
+                  </button>
+              </li>
+          </ul>
 
         </div><!--/.nav-collapse -->
 
@@ -70,17 +73,31 @@
 
     <div class="container">
 
-        <!-- Have to put jquery here so "content" block has access to all this -->
+        <!-- Have to put js libs here so "content" block has access to all this -->
         <script src="//code.jquery.com/jquery-1.10.1.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
 
         {% block content %}{% endblock %}
 
     </div> <!-- /container -->
 
 
-    <!-- Bootstrap core JavaScript
+    <!-- Put all custom JS here
     ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            // Go to logout link when clicked
+            $('#logout').click(function(){
+                window.location.href = "{{ logout_link }}";
+            });
+
+            $('#logout').tooltip({
+                'placement': 'bottom',
+                'animation': false,
+            });
+
+        });
+    </script>
   </body>
 </html>
