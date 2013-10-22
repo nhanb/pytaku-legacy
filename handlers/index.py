@@ -3,6 +3,7 @@ import cgi
 import jinja2
 import os
 from google.appengine.api import taskqueue, users
+from handlers.auth import Otaku
 
 JINJA_ENV = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__) +
@@ -18,6 +19,8 @@ alert_messages = {
     'approved': ("Dropbox account connected!", "success"),
     'not_approved': ("Failed to connect Dropbox account. Why did you cancel?",
                      "danger"),
+    'please_setup': ("You haven't linked your Dropbox account. Click\
+                     'Authenticate with Dropbox' first.", "danger"),
 }
 
 
@@ -41,6 +44,19 @@ class MainPage(webapp2.RequestHandler):
             }
             template_values = dict(template_values.items() +
                                    alert_values.items())
+
+        else:
+            # Show warning if not authenticated with dropbox yet
+            otaku = Otaku.query(Otaku.userid == user.user_id()).get()
+            if not (otaku and otaku.access_token):
+                msg = 'please_setup'
+                alert_values = {
+                    'alert_display': 'block',
+                    'alert_type': alert_messages[msg][1],
+                    'alert_msg': alert_messages[msg][0],
+                }
+                template_values = dict(template_values.items() +
+                                       alert_values.items())
 
         self.response.write(template.render(template_values))
 
