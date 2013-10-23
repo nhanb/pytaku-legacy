@@ -20,7 +20,9 @@ alert_messages = {
     'not_approved': ("Failed to connect Dropbox account. Why did you cancel?",
                      "danger"),
     'please_setup': ("You haven't linked your Dropbox account. Click\
-                     'Authenticate with Dropbox' first.", "danger"),
+                     'Authenticate with Dropbox' first.", "warning"),
+    'submitted': ("Link(s) submitted. Check your <strong>Apps/Pytaku</strong>\
+                  folder in Dropbox", "success"),
 }
 
 
@@ -70,4 +72,4 @@ class MainPage(webapp2.RequestHandler):
                           params={'content': link,
                                   'userid': userid})
             self.response.write(cgi.escape(userid))
-        self.response.write(SUCCESS_PAGE_HTML)
+        self.redirect("/?msg=submitted")
